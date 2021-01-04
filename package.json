@@ -16,5 +16,16 @@
   "bugs": {
     "url": "https://github.com/everthis/lc-score-board/issues"
   },
-  "homepage": "https://github.com/everthis/lc-score-board#readme"
+  "homepage": "https://github.com/everthis/lc-score-board#readme",
+  "dependencies": {
+    "antd": "^4.10.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-redux": "^7.2.2",
+    "styled-components": "^5.2.1"
+  },
+  "devDependencies": {
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.1"
+  }
 }
