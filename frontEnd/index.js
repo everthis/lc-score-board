@@ -1,30 +1,50 @@
-import React, { useState } from 'react';
-import { render } from 'react-dom';
-import { ConfigProvider, DatePicker, message } from 'antd';
-// 由于 antd 组件的默认文案是英文，所以需要修改为中文
-import zhCN from 'antd/lib/locale/zh_CN';
-import moment from 'moment';
-import 'moment/locale/zh-cn';
-import 'antd/dist/antd.css';
+import React, { useState, useEffect } from "react"
+import { render } from "react-dom"
+import { ConfigProvider, message, Table } from "antd"
 
-moment.locale('zh-cn');
+import zhCN from "antd/lib/locale/zh_CN"
+import "antd/dist/antd.css"
 
 const App = () => {
-  const [date, setDate] = useState(null);
-  const handleChange = value => {
-    message.info(`您选择的日期是: ${value ? value.format('YYYY年MM月DD日') : '未选择'}`);
-    setDate(value);
-  };
+  const [tableData, setTableData] = useState([])
+  const [tableCols, setTableCols] = useState([])
+  useEffect(() => {
+    const isProd = window.location.origin.endsWith("github.io")
+    const dataPath = isProd ? "/lc-score-board/getRank/data.json" : "/data.json"
+    fetch(`${window.location.origin}${dataPath}`)
+      .then(d => d.json())
+      .then(d => {
+        
+      })
+  }, []);
+
+  /**
+[
+  { title: 'Column 8', dataIndex: 'address', key: '8' },
+  {
+    title: 'Action',
+    key: 'operation',
+    fixed: 'right',
+    width: 100,
+    render: () => <a>action</a>,
+  },
+];
+
+const data = [];
+for (let i = 0; i < 100; i++) {
+  data.push({
+    key: i,
+    name: `Edrward ${i}`,
+    age: 32,
+    address: `London Park no. ${i}`,
+  });
+}
+   */
   return (
     <ConfigProvider locale={zhCN}>
-      <div style={{ width: 400, margin: '100px auto' }}>
-        <DatePicker onChange={handleChange} />
-        <div style={{ marginTop: 16 }}>
-          当前日期：{date ? date.format('YYYY年MM月DD日') : '未选择'}
-        </div>
-      </div>
+      <Table columns={tableCols} dataSource={tableData} scroll={{ x: 1500 }} sticky />
     </ConfigProvider>
-  );
-};
+  )
+}
 
-render(<App />, document.getElementById('app'));
+render(<App />, document.getElementById("app"))

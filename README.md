@@ -8,3 +8,7 @@ Functions include:
 * Sort the final ranking based on the final score.
 * Organize the results and export them to an xlsx file.
 * Generate HTML file and push to the web end.
+
+## Prerequisites
+
+* `Node.js`, latest LTS version.

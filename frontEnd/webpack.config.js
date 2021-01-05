@@ -25,7 +25,11 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.json$/,
+        loader: "json-loader",
       },
     ],
   },
@@ -33,7 +37,7 @@ module.exports = {
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     new HtmlWebpackPlugin({
       title: "Development",
-      template: path.join(__dirname, 'index.html'),
+      template: path.join(__dirname, "index.html"),
     }),
   ],
   output: {
@@ -41,8 +45,8 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
   },
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: path.join(__dirname, "dist"),
     compress: true,
     port: 3435,
-  }
+  },
 }
