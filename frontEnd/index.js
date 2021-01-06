@@ -2,10 +2,14 @@ import React, { useState, useEffect } from "react";
 import { render } from "react-dom";
 import { ConfigProvider, message, Table } from "antd";
 
+import AutoSizer from 'react-virtualized-auto-sizer'
+
 import zhCN from "antd/lib/locale/zh_CN";
 import "antd/dist/antd.css";
+import './index.css'
 
 import { VirtualTable } from "./vitualTable";
+import HorizontalList from './horizontalList'
 
 const App = () => {
   const [tableData, setTableData] = useState([]);
@@ -13,9 +17,9 @@ const App = () => {
   useEffect(() => {
     const isProd = window.location.origin.endsWith("github.io");
     const dataPath = isProd
-      ? "/lc-score-board/getRank/data.json"
-      : "/data.json";
-    fetch(`${window.location.origin}${dataPath}`)
+      ? `${window.location.origin}/lc-score-board/getRank/data.json`
+      : "https://wisdompeak.github.io/lc-score-board/getRank/data.json";
+    fetch(`${dataPath}`)
       .then((d) => d.json())
       .then((d) => {
         try {
@@ -36,7 +40,7 @@ const App = () => {
             });
             res.push(el);
           });
-          console.log(res);
+        //   console.log(res);
           const contests = Array.from(set).sort((a, b) => b - a);
           contests.forEach((k) => {
             const tmp = {
@@ -53,7 +57,7 @@ const App = () => {
             }
             cols.push(tmp);
           });
-          console.log(cols);
+        //   console.log(cols);
           setTableCols(cols);
           setTableData(res);
         } catch (e) {
@@ -64,6 +68,10 @@ const App = () => {
 
   return (
     <ConfigProvider locale={zhCN}>
+      <AutoSizer>
+        {({height, width}) => null}
+      </AutoSizer>
+      <HorizontalList />
       <VirtualTable
         pagination={false}
         columns={tableCols}
