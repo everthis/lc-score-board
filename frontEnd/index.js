@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { render } from "react-dom";
-import { ConfigProvider, message, Table } from "antd";
+import AutoSizer from "react-virtualized-auto-sizer";
 
-import AutoSizer from 'react-virtualized-auto-sizer'
-
-import zhCN from "antd/lib/locale/zh_CN";
-import "antd/dist/antd.css";
-import './index.css'
-
+import "./index.css";
+import "./styles.css";
 import { VirtualTable } from "./vitualTable";
-import HorizontalList from './horizontalList'
+import HorizontalList from "./horizontalList";
 
 const App = () => {
   const [tableData, setTableData] = useState([]);
@@ -40,7 +36,7 @@ const App = () => {
             });
             res.push(el);
           });
-        //   console.log(res);
+          //   console.log(res);
           const contests = Array.from(set).sort((a, b) => b - a);
           contests.forEach((k) => {
             const tmp = {
@@ -57,7 +53,7 @@ const App = () => {
             }
             cols.push(tmp);
           });
-        //   console.log(cols);
+          //   console.log(cols);
           setTableCols(cols);
           setTableData(res);
         } catch (e) {
@@ -65,20 +61,23 @@ const App = () => {
         }
       });
   }, []);
-
+  const Row = ({ index, style }) => (
+    <div className={index % 2 ? "ListItemOdd" : "ListItemEven"} style={style}>
+      Row {index}
+    </div>
+  );
   return (
-    <ConfigProvider locale={zhCN}>
+    <>
       <AutoSizer>
-        {({height, width}) => null}
+        {({ height, width }) => <HorizontalList width={width} />}
       </AutoSizer>
-      <HorizontalList />
-      <VirtualTable
+      {/* <VirtualTable
         pagination={false}
         columns={tableCols}
         dataSource={tableData}
         scroll={{ x: "100vw", y: window.innerHeight }}
-      />
-    </ConfigProvider>
+      /> */}
+    </>
   );
 };
 

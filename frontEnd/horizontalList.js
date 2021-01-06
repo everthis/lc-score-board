@@ -71,7 +71,9 @@ const StickyList = ({ children, stickyIndices, ...rest }) => (
   </StickyListContext.Provider>
 )
 
-export default function HorizontalList() {
+export default function HorizontalList(props) {
+  const {width} = props
+  console.log(width)
   return (
     <StickyList
       height={150}
@@ -81,7 +83,7 @@ export default function HorizontalList() {
       layout='horizontal'
       direction='ltr'
       stickyIndices={[0, 1]}
-      width={1000}
+      width={width}
       className="hsl"
     >
       {Row}
